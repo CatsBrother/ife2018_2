@@ -29,20 +29,19 @@ function leapYear(year){
  ## date 方法
  方法	描述
 > Date()	返回当日的日期和时间。
-> getDate()	从 Date 对象返回一个月中的某一天 (1 ~ 31)。
-> getDay()	从 Date 对象返回一周中的某一天 (0 ~ 6)。
-> getMonth()	从 Date 对象返回月份 (0 ~ 11)。
-> getFullYear()	从 Date 对象以四位数字返回年份。
-> getHours()	返回 Date 对象的小时 (0 ~ 23)。
-> getMinutes()	返回 Date 对象的分钟 (0 ~ 59)。
-> getSeconds()	返回 Date 对象的秒数 (0 ~ 59)。
-> getTime()	返回 1970 年 1 月 1 日至今的毫秒数。
-> setDate()	设置 Date 对象中月的某一天 (1 ~ 31)。
-> setMonth()	设置 Date 对象中月份 (0 ~ 11)。
-> setFullYear()	设置 Date 对象中的年份（四位数字）。
-> setHours()	设置 Date 对象中的小时 (0 ~ 23)。
-> setMinutes()	设置 Date 对象中的分钟 (0 ~ 59)。
-> setSeconds()	设置 Date 对象中的秒钟 (0 ~ 59)。
-> setMilliseconds()	设置 Date 对象中的毫秒 (0 ~ 999)。
-> toLocaleString()	根据本地时间格式，把 Date 对象转换为字符串。
-
+> getDate()	从 Date 对象返回一个月中的某一天 (1 ~ 31)。  
+> getDay()	从 Date 对象返回一周中的某一天 (0 ~ 6)。  
+> getMonth()	从 Date 对象返回月份 (0 ~ 11)。  
+> getFullYear()	从 Date 对象以四位数字返回年份。  
+> getHours()	返回 Date 对象的小时 (0 ~ 23)。  
+> getMinutes()	返回 Date 对象的分钟 (0 ~ 59)。  
+> getSeconds()	返回 Date 对象的秒数 (0 ~ 59)。  
+> getTime()	返回 1970 年 1 月 1 日至今的毫秒数。  
+> setDate()	设置 Date 对象中月的某一天 (1 ~ 31)。  
+> setMonth()	设置 Date 对象中月份 (0 ~ 11)。  
+> setFullYear()	设置 Date 对象中的年份（四位数字）。  
+> setHours()	设置 Date 对象中的小时 (0 ~ 23)。  
+> setMinutes()	设置 Date 对象中的分钟 (0 ~ 59)。  
+> setSeconds()	设置 Date 对象中的秒钟 (0 ~ 59)。  
+> setMilliseconds()	设置 Date 对象中的毫秒 (0 ~ 999)。  
+> toLocaleString()	根据本地时间格式，把 Date 对象转换为字符串。  
