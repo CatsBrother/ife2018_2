@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>code2</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<div class="seldiv">
+		<select id="year-select">
+		</select>
+	
+		<select id="month-select">
+		</select>
+	
+		<select id="day-select">
+		</select>
+	
+		<select id="hour-select">
+		</select>
+	
+		<select id="minute-select">
+		</select>
+	
+		<select id="second-select">
+		</select>
+	</div>
+    
+
+	<p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+	<script type="text/javascript">
+		var p = document.getElementById("result-wrapper");
+		var year = document.getElementById("year-select");
+		var month = document.getElementById("month-select");
+		var day = document.getElementById("day-select");
+		var hour = document.getElementById("hour-select");
+		var minute = document.getElementById("minute-select");
+		var second = document.getElementById("second-select");
+		var seldiv = document.getElementsByClassName("seldiv")[0];
+		const arr = [year,month,day,hour,minute,second];
+		var adate = new Date(2000,0,1,1,1,1);  //初始化目标时间
+		//是否闰年
+		function leapYear(year){
+			var leap = false;
+			if ((year % 4 == 0)&&(year % 100 != 0)) {
+				leap = true;
+			}else if (year % 400 == 0) {
+				leap = true;
+			}
+			return leap;
+		}
+
+		//获取当月天数
+		function getDay(year,month){
+			var mon = [31,28,31,30,31,30,31,31,30,31,30,31];
+			if (leapYear(year)) {
+				mon[1] = 29;
+			}
+			return mon[month-1];
+		}
+
+		//获取当前时间对象
+		function getNow(){
+			var t = new Date();
+			return t;
+		}
+
+		//获取目标时间对象
+		function getTarget(adate,unit){
+			if(unit === 'year'){
+				var index = year.selectedIndex;
+				var aim = year.options[index].value;
+				adate.setFullYear(aim);
+			}else if(unit === 'month'){
+				var index = month.selectedIndex;
+				var aim = month.options[index].value;
+				adate.setMonth(aim);
+			}else if(unit === 'day'){
+				var index = day.selectedIndex;
+				var aim = day.options[index].value;
+				adate.setDate(aim);
+			}else if(unit === 'hour'){
+				var index = hour.selectedIndex;
+				var aim = hour.options[index].value;
+				adate.setHours(aim);
+			}else if(unit === 'minute'){
+				var index = minute.selectedIndex;
+				var aim = minute.options[index].value;
+				adate.setMinutes(aim);
+			}else if(unit === 'second'){
+				var index = second.selectedIndex;
+				var aim = second.options[index].value;
+				adate.setSeconds(aim);
+			}
+			console.log("获取目标时间为："+adate);
+			return adate;
+		}
+
+		//初始化option标签
+		function newOption(){
+			for(var i = 2000; i <= 2050; i++){
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				year.options.add(option);
+			}
+			for(var i = 1; i <= 12; i++){
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				month.options.add(option);
+			}
+			for (var i = 1; i <= 31; i++) {
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				day.options.add(option);
+			}
+			for(var i = 1; i <= 24; i++){
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				hour.options.add(option);
+			}
+			for(var i = 1; i < 60; i++){
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				minute.options.add(option);
+			}
+			for(var i = 1; i < 60; i++){
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				second.options.add(option);
+			}
+		}
+
+		//动态生成option标签
+		function setOption(time){
+			//var time = getTarget();
+			var opyear = time.getFullYear();
+			var opmonth = time.getMonth();
+			var opnum = getDay(opyear,opmonth);
+			console.log("目标年"+opyear+" 目标月"+opmonth+"这个月天数"+opnum);
+			for (var i = 1; i <= opnum; i++) {
+				var option = document.createElement("OPTION");
+				option.text = i;
+				option.value = i;
+				day.options.add(option);
+			}
+		}
+
+		//根据目标时间更新P标签
+		function updateP(aim_date){
+			var str1 = str(aim_date);
+			p.innerHTML = "现在距离"+str1;
+		}
+
+		//根据date计算星期几
+		function getWeek(t){
+			//console.log(t);
+    		var weekday = t.getDay();
+    		var arrWeek = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+    		return arrWeek[weekday];
+    	}
+
+    	//补0 12小时制转24小时制
+    	function turn(t){
+    		var time = t.toLocaleTimeString().substr(2,8);
+    		var timeArr = time.split(":");
+    		if (timeArr[0].length == 1) {
+    			timeArr[0] = 0 + timeArr[0];
+    			console.log(timeArr[0]);
+    		}
+    		if (t.toLocaleTimeString().substr(0,2) == "下午") {
+    			timeArr[0] = Number(timeArr[0]) + 12;
+    		}
+    		return timeArr.join(":");
+    	}
+
+    	function str(t){
+    		var time = turn(t);
+    		var day = t.getDate();
+    		var mon = t.getMonth() + 1;
+    		var year = t.getFullYear();
+    		var week = getWeek(t);
+    		var string = year + "年" + mon + "月" + day + "日 " + week +"  "+time;
+    		return string;
+    	}
+
+		//更新时间差值
+		function differ(sym,arr){
+			if(sym){
+				p.innerHTML += "已经过去";
+			}else{
+				p.innerHTML += "还有";
+			}
+			p.innerHTML += arr[0]+"天"+arr[1]+"小时"+arr[2]+"分钟"+arr[3]+"秒";
+		}
+
+		//计算两个时间之间的差值  date1为当前时间
+		function cal(date1,date2){
+			var sec1= date1.getTime()/1000;
+			var sec2= date2.getTime()/1000;
+			var sym = true; 		//date1大于date2
+			var differ = sec1 - sec2;
+			if (differ < 0){
+				differ = Math.abs(differ);
+				sym = false;
+			}
+			var dif_arr = [0,0,0,0];
+			dif_arr[3] = Math.round(differ % 60);
+			//console.log("dif_arr[3]" + dif_arr[3]);
+			var mid = Math.floor(differ / 60);
+			dif_arr[2] = mid % 60;
+			mid = Math.floor(mid / 60);
+			dif_arr[1] = mid % 24;
+			dif_arr[0] = Math.floor(mid / 24);
+			console.log([sym,dif_arr])
+			return [sym,dif_arr];
+		}
+
+		
+
+    	window.onload = function(){
+    		newOption();
+    	}
+
+		seldiv.onchange = function(e){
+			var tid = e.target.id;
+			var unit = tid.split("-");
+			unit = unit[0];
+			var foo = getTarget(adate,unit);
+			setOption(foo);
+			updateP(foo);
+			var date1 = getNow();
+			var calarr = cal(date1,foo);
+			differ(calarr[0],calarr[1]);
+		}
+
+    	
+	</script>
+</body>
+</html>
