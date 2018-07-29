@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>给爱的人发个邮件吧</title>
+    <style>
+        *{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper{
+            margin: 200px auto;
+            width: 300px;
+            overflow: hidden;
+        }
+        #email-input{
+            width: 296px;
+            height: 30px;
+        }
+        .email-sug{
+            display: none;
+        }
+        .email-sug li{
+            border: solid 1px #666;
+            padding-left: 10px;
+            color: #999;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text"/>
+        <ul id="email-sug-wrapper" class="email-sug"></ul>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
