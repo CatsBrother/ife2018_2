@@ -29,11 +29,18 @@
             color: #999;
             
         }
+        /* 鼠标滑过 */
+        .email-sug li:hover{
+            background-color: aquamarine;
+        }
+        .active{
+            background-color:deeppink;
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <input id="email-input" type="text"/>
+        <input id="email-input" type="text" autofocus="autofocus"/>
         <ul id="email-sug-wrapper" class="email-sug"></ul>
     </div>
     <script src="js/script.js"></script>

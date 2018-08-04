@@ -2,6 +2,7 @@ var wrapper = document.getElementsByClassName("wrapper")[0];
 var input = document.getElementById("email-input");
 var ul = document.getElementById("email-sug-wrapper");
 var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+var nowSelectTipIndex = 0;
 //console.log("input "+input.value);
 // document.onkeydown = function(e){
 //     console.log("keydown "+e.keyCode);
@@ -10,9 +11,34 @@ var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
 //     console.log("keypress "+e.keyCode);
 // }
 document.onkeyup = function(e){
-    //console.log("value "+input.value);
-    addLi();
-    hideShow();
+    var numli = setHint();
+    if(e.keyCode !== 13 && e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 27){
+        addLi();
+        hideShow();
+    }else{
+        if (e.keyCode === 38) {
+            if(nowSelectTipIndex === 0){
+                nowSelectTipIndex = numli.length - 1;
+            }else{
+                nowSelectTipIndex = nowSelectTipIndex - 1;
+            }
+            addLi();
+            hideShow();
+        }else if(e.keyCode === 40){
+            if(nowSelectTipIndex >= numli.length-1) {
+                nowSelectTipIndex = 0;
+            } else {
+                nowSelectTipIndex = nowSelectTipIndex + 1;
+            }
+            addLi();
+            hideShow();
+        }else if(e.keyCode === 13){
+            input.value = numli[nowSelectTipIndex];
+            hide();
+        }else if(e.keyCode === 27){
+            input.select();
+        }
+    }
 }
 
 //去掉字符串前后空格
@@ -33,7 +59,6 @@ function getInput() {
     var str = input.value;
     return trim(str);
 }
-// console.log("getinput  " + getInput());
 
 //生成提示框中的提示内容
 function setHint() {
@@ -62,6 +87,9 @@ function setHint() {
                 hint[i] = userinput +"@"+ postfixList[i];
             }
         }
+        for (let i = 0; i < hint.length; i++) {
+            hint[i] = htmlEncode(hint[i]);
+        }
         return hint;
     }else{
         return null;
@@ -74,7 +102,11 @@ function addLi() {
     if(hint){
         var li="";
         for (let i = 0; i < hint.length; i++) {
-            li += '<li>'+hint[i]+'</li>';
+            if(i === nowSelectTipIndex){
+                li += '<li class = "active">'+hint[i]+'</li>';
+            }else{
+                li += '<li>'+hint[i]+'</li>';
+            }
         }
         // li = li + '</ul>'
         ul.innerHTML = li;
@@ -105,14 +137,39 @@ function show() {
 
 ul.onclick = function (e) {
     var t = e.target;
-    if(t.parentNode === "ul"){
-        var choose = t.value;
-        input.value = choose;
+    if(t.parentNode.nodeName === "UL"){
+        var choose = t.innerText;
+        console.log("t.value:"+choose);
+        input.value = htmlDecode(choose);
         hide();
+        input.focus();
     }
-    // if 被点击的是不是提示框中的Li节点 {
-    //     获取被点击Li对应的提示内容
-    //     将内容放到input输入框中
-    //     隐藏输入框
-    // }
 }
+
+//转码 解码
+
+function htmlEncode (html){
+    //1.首先动态创建一个容器标签元素，如DIV
+    var temp = document.createElement ("div");
+    //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+    (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+    //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+    var output = temp.innerHTML;
+    temp = null;
+    return output;
+}
+/*2.用浏览器内部转换器实现html解码*/
+function htmlDecode (text){
+    //1.首先动态创建一个容器标签元素，如DIV
+    var temp = document.createElement("div");
+    //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+    temp.innerHTML = text;
+    //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+    var output = temp.innerText || temp.textContent;
+    temp = null;
+    return output;
+}
+function refresh() {
+    nowSelectTipIndex = 0;
+}
+
