@@ -12,7 +12,7 @@
             padding: 0;
         }
         .wrapper{
-            margin: 200px auto;
+            margin: 200px auto 20px;
             width: 300px;
             overflow: hidden;
         }
@@ -36,6 +36,13 @@
         .active{
             background-color:deeppink;
         }
+        .require{
+            margin: 20px auto;
+            background-color: #eee;
+            display: block;
+            width: 600px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -43,6 +50,26 @@
         <input id="email-input" type="text" autofocus="autofocus"/>
         <ul id="email-sug-wrapper" class="email-sug"></ul>
     </div>
+    <div class="require">
+        <h3>实现需求</h3>
+        <ul>
+            <li>当用户输入字符后，显示提示框，并且把用户输入的内容自动拼上邮箱后缀进行显示</li>
+            <li>去除用户输入前后空格</li>
+            <li>当用户输入含有 @ 符号时，我们选取用户输入的@前面的字符来和后缀拼接</li>
+            <li>当用户输入了 @ 及部分后缀时，只选取符合用户输入预期的后缀。</li>
+            <li>鼠标如果点击某个提示，则提示内容进入输入框，同时提示框消失</li>
+            <li>在输入框中任意再输入字符或删除字符，则重新开始出现提示框</li>
+            <li>在生成提示内容那里，对于特殊字符进行转义编码，在把鼠标点击的提示框内容转回输入框时进行解码</li>
+            <li>当有提示框的时候，默认第一个提示为被选择状态，用一个和鼠标滑过不一样的背景色来标识</li>
+            <li>按上键，可以向上移动选择状态，如果按键之前的被选择提示是第一个，则被选状态移到最下面一个</li> 
+            <li>按下键，可以向下移动选择状态，如果按键之前的被选择提示是最后一个，则被选状态移到第一个</li> 
+            <li>当有输入框时，按回车键，则将当前被选中状态的提示内容，放到输入框中，并隐藏提示框</li>
+            <li>一进入页面就将焦点放在输入框中</li>
+            <li>用户点击鼠标，进行提示选择后，焦点依然在输入框中</li>
+            <li>用户按ESC键的时候，对用户输入进行全选</li>
+        </ul>
+    </div>
+    
     <script src="js/script.js"></script>
 </body>
 </html>
