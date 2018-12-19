@@ -1,18 +1,20 @@
-let products = document.getElementById("region-select");
-let one_product = document.getElementsByTagName("option");
-let table = document.getElementById("table-list");
+let regions = document.getElementById("region-select");
+let products = document.getElementById("product-select");
+// let reg_opt = document.getElementsByTagName("option");
+let reg_opt = document.querySelector("#region-select option");
+let pro_opt = document.querySelector("#product-select option");
+let table_div = document.getElementById("table_list");
 
-// let choose_product = document.querySelector("option:selected")
-products.onchange = function(){
-    let pro_index = products.selectedIndex;
-    let select_product = one_product[pro_index].text
-    console.log(select_product);
-    newTable(getData(select_product));
+regions.onchange = function(){
+    let reg_index = regions.selectedIndex;
+    let select_region = reg_opt[reg_index].text;
+    console.log(select_region);
+    newTable(getData(select_region));
 }
-// region-select的change事件 = function() {
-//     渲染新的表格(根据select选项获取数据)
-// }
-
+products.onchange = function(){
+    let pro_index = pro_index.selectedIndex;
+    let select_product = pro_opt[pro_index].text;
+}
 // 根据select选项获取数据
 function getData(select) {
     let arr = [];
@@ -46,10 +48,13 @@ function newTable(data) {
         console.log("row",row);
         content = content.concat(row);
     }
-    console.log("content",content);
-    table.innerText = content;  //无法将内容添加到表格中 innerHTML无效！！！？？？
+    table_div.innerHTML = content; 
 }
+// 初始化表格
 window.onload = function(){
-    console.log(sourceData[0]);
+    let reg_index = 0;
+    let select_region = reg_opt[reg_index].text
+    console.log(select_region);
+    newTable(getData(select_region));
 }    
 
