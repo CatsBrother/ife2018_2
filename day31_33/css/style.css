@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.select select{
+    text-align: center;
+    text-align-last: center;
+}
+.select{
+    width: 200px;
+    text-align: center;
+    margin: 50px auto;
+}
+#table_list{
+    margin: 0 auto;
+}

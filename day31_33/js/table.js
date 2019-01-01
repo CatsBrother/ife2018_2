@@ -1,26 +1,34 @@
 let regions = document.getElementById("region-select");
 let products = document.getElementById("product-select");
-// let reg_opt = document.getElementsByTagName("option");
-let reg_opt = document.querySelector("#region-select option");
-let pro_opt = document.querySelector("#product-select option");
+let reg_opt = document.querySelectorAll("#region-select option");
+let pro_opt = document.querySelectorAll("#product-select option");
 let table_div = document.getElementById("table_list");
+var reg_index = 0;
+var pro_index = 0;
+var select_region = reg_opt[reg_index].text;
+var select_product = pro_opt[pro_index].text;
+// console.log('select_region',select_region);
+// console.log('select_product',select_product);
 
 regions.onchange = function(){
     let reg_index = regions.selectedIndex;
-    let select_region = reg_opt[reg_index].text;
-    console.log(select_region);
-    newTable(getData(select_region));
+    select_region = reg_opt[reg_index].text;
+    console.log('select_region',select_region);
+    newTable(getData(select_region,select_product));
 }
 products.onchange = function(){
-    let pro_index = pro_index.selectedIndex;
-    let select_product = pro_opt[pro_index].text;
+    let pro_index = products.selectedIndex;
+    select_product = pro_opt[pro_index].text;
+    console.log('select_product',select_product);
+    newTable(getData(select_region,select_product));
 }
+
 // 根据select选项获取数据
-function getData(select) {
+function getData(select_reg,select_pro,) {
     let arr = [];
     for(let i = 0; i < sourceData.length; i++){
         console.log(sourceData[i].region);
-        if(sourceData[i].region == select){
+        if(sourceData[i].region === select_reg && sourceData[i].product === select_pro){
             arr.push(sourceData[i]);
         }
     }
@@ -52,9 +60,5 @@ function newTable(data) {
 }
 // 初始化表格
 window.onload = function(){
-    let reg_index = 0;
-    let select_region = reg_opt[reg_index].text
-    console.log(select_region);
-    newTable(getData(select_region));
+    newTable(getData(select_region,select_product));
 }    
-
