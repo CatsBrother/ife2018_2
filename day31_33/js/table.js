@@ -3,6 +3,8 @@ let products = document.getElementById("product-select");
 let reg_opt = document.querySelectorAll("#region-select option");
 let pro_opt = document.querySelectorAll("#product-select option");
 let table_div = document.getElementById("table_list");
+let reg_checkbox = document.getElementById("region-radio-wrapper");
+let pro_checkbox = document.getElementById("product-radio-wrapper");
 var reg_index = 0;
 var pro_index = 0;
 var select_region = reg_opt[reg_index].text;
@@ -62,3 +64,62 @@ function newTable(data) {
 window.onload = function(){
     newTable(getData(select_region,select_product));
 }    
+
+// 19.1.2  生成checkbox
+function setCheckBox(container, array) {
+    let all = `<input type="checkbox" checkbox_type="all" text="全选"/>全选`;
+    let check_str = '';
+    for(let i = 0; i < array.length; i++){
+        check_str += `<input type="checkbox" checkbox_type="one" text="${array[i].text}"/> ${array[i].text} `;
+    }
+    container.innerHTML = all + check_str;
+
+    container.onclick = function(e){
+        let t = e.target;
+        if(t.type === 'checkbox'){
+            let type = t.getAttribute("checkbox_type");
+            if(type === 'all'){
+                let i = 1;
+                for(i in t.parentNode.children){
+                    t.parentNode.children[i].checked = true;
+                }
+            }else{
+                let sum = 0;
+                t.parentNode.children[0].checked = false;
+                for(let j = 1; j < t.parentNode.children.length; j++){
+                    if(t.parentNode.children[j].checked === true){
+                        sum++;
+                    }
+                }
+                console.log('sum',sum);
+                if(sum == 0){
+                    t.checked = true;
+                }else if(sum == 3){
+                    t.parentNode.children[0].checked = true;
+                }
+            }
+        }
+    }
+}
+// 调用
+setCheckBox(reg_checkbox, [{
+    value: 1,
+    text: "华东"
+}, {
+    value: 2,
+    text: "华北"
+}, {
+    value: 3,
+    text: "华南"
+}]);
+
+setCheckBox(pro_checkbox, [{
+    value: 1,
+    text: "手机"
+}, {
+    value: 2,
+    text: "笔记本"
+}, {
+    value: 3,
+    text: "智能音箱"
+}]);
