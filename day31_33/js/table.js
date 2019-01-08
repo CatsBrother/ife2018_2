@@ -1,29 +1,28 @@
 let regions = document.getElementById("region-select");
 let products = document.getElementById("product-select");
-let reg_opt = document.querySelectorAll("#region-select option");
-let pro_opt = document.querySelectorAll("#product-select option");
+// let reg_opt = document.querySelectorAll("#region-select option");
+// let pro_opt = document.querySelectorAll("#product-select option");
 let table_div = document.getElementById("table_list");
 let reg_checkbox = document.getElementById("region-radio-wrapper");
 let pro_checkbox = document.getElementById("product-radio-wrapper");
-var reg_index = 0;
-var pro_index = 0;
-var select_region = reg_opt[reg_index].text;
-var select_product = pro_opt[pro_index].text;
-// console.log('select_region',select_region);
-// console.log('select_product',select_product);
+// let reg_index = 0;
+// let pro_index = 0;
+// let select_region = reg_opt[reg_index].text;
+// let select_product = pro_opt[pro_index].text;
 
-regions.onchange = function(){
-    let reg_index = regions.selectedIndex;
-    select_region = reg_opt[reg_index].text;
-    console.log('select_region',select_region);
-    newTable(getData(select_region,select_product));
-}
-products.onchange = function(){
-    let pro_index = products.selectedIndex;
-    select_product = pro_opt[pro_index].text;
-    console.log('select_product',select_product);
-    newTable(getData(select_region,select_product));
-}
+// select事件
+// regions.onchange = function(){
+//     let reg_index = regions.selectedIndex;
+//     select_region = reg_opt[reg_index].text;
+//     console.log('select_region',select_region);
+//     newTable(getData(select_region,select_product));
+// }
+// products.onchange = function(){
+//     let pro_index = products.selectedIndex;
+//     select_product = pro_opt[pro_index].text;
+//     console.log('select_product',select_product);
+//     newTable(getData(select_region,select_product));
+// }
 
 // 根据select选项获取数据
 function getData(select_reg,select_pro,) {
@@ -61,9 +60,9 @@ function newTable(data) {
     table_div.innerHTML = content; 
 }
 // 初始化表格
-window.onload = function(){
-    newTable(getData(select_region,select_product));
-}    
+// window.onload = function(){
+//     newTable(getData(select_region,select_product));
+// }    
 
 // 19.1.2  生成checkbox
 function setCheckBox(container, array) {
@@ -99,6 +98,7 @@ function setCheckBox(container, array) {
                 }
             }
         }
+        getOriginData(container);
     }
 }
 // 调用
@@ -123,3 +123,27 @@ setCheckBox(pro_checkbox, [{
     value: 3,
     text: "智能音箱"
 }]);
+
+// 获取数据
+function getOriginData (container){
+    let children = container.children;
+    let arr = [];
+    for(let i = 1; i < children.length; i++){
+        if(children[i].checked){
+            console.log(children[i].getAttribute("text"));
+            arr.push(children[i].getAttribute("text"));
+        }
+    }
+    console.log("arr",arr);
+    return arr;
+}
+
+// // 获取数据
+// function 获取数据 {
+//     遍历原始数据 {
+//         判断是否在商品维度 或者 地区维度的选中范围内 {
+//             添加到返回数据list中
+//         }
+//     }
+//     返回数据
+// }
