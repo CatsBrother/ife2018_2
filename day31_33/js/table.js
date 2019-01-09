@@ -5,6 +5,9 @@ let products = document.getElementById("product-select");
 let table_div = document.getElementById("table_list");
 let reg_checkbox = document.getElementById("region-radio-wrapper");
 let pro_checkbox = document.getElementById("product-radio-wrapper");
+// 定义选中的地区和产品数组
+let arr1 = [];
+let arr2 = [];
 // let reg_index = 0;
 // let pro_index = 0;
 // let select_region = reg_opt[reg_index].text;
@@ -25,7 +28,7 @@ let pro_checkbox = document.getElementById("product-radio-wrapper");
 // }
 
 // 根据select选项获取数据
-function getData(select_reg,select_pro,) {
+/*function getData(select_reg,select_pro,) {
     let arr = [];
     for(let i = 0; i < sourceData.length; i++){
         console.log(sourceData[i].region);
@@ -35,30 +38,51 @@ function getData(select_reg,select_pro,) {
     }
     console.log('arr',arr);
     return arr;
-}
-// 渲染新的表格
-function newTable(data) {
-    // table.appendChild()
-    let str = "<tr> <th>商品</th> <th>产地</th>";
-    let string = "";
-    for(let i = 0; i < 12; i++){
-        string += '<th>' + i + "月</th>"
+}*/
+// 渲染新的表格  select
+
+function newTable(data,arr1,arr2) {
+    // 当地区只有一个时地区为第一列 其他情况商品第一列
+    if(arr1.length === 1 && arr2.length !==1){
+        str = "<tr> <th>地区</th> <th>商品</th>";
+        is_product = true;
+    }else{
+        str = "<tr> <th>商品</th> <th>产地</th>";
+        is_product = false;
     }
+    let string = '<th>1月</th>'
+                +'<th>2月</th>'
+                +'<th>3月</th>'
+                +'<th>4月</th>'
+                +'<th>5月</th>'
+                +'<th>6月</th>'
+                +'<th>7月</th>'
+                +'<th>8月</th>'
+                +'<th>9月</th>'
+                +'<th>10月</th>'
+                +'<th>11月</th>'
+                +'<th>12月</th>'
     str += string + "</tr>";
+    console.log('表头',str);
     let content = "";
     for(let j = 0; j < data.length; j++){
         let row = "<tr>";
-        row += "<td>" + data[j].product + "</td>" + "<td>" + data[j].region + "</td>";
-        let monthdata = "";
-        for(let k = 0; k < data[j].sale.length; k++){
-            monthdata += "<td>" + data[j].sale[k] + "</td>";
+        if(is_product){
+            row += "<td>" + data[j].region + "</td>" + "<td>" + data[j].product + "</td>";
+        }else{
+            row += "<td>" + data[j].product + "</td>" + "<td>" + data[j].region + "</td>";
         }
-        row += monthdata + "</tr>";
+        let month_data = "";
+        for(let k = 0; k < data[j].sale.length; k++){
+            month_data += "<td>" + data[j].sale[k] + "</td>";
+        }
+        row += month_data + "</tr>";
         console.log("row",row);
         content = content.concat(row);
     }
-    table_div.innerHTML = content; 
+    table_div.innerHTML = str + content; 
 }
+
 // 初始化表格
 // window.onload = function(){
 //     newTable(getData(select_region,select_product));
@@ -72,9 +96,9 @@ function setCheckBox(container, array) {
         check_str += `<input type="checkbox" checkbox_type="one" text="${array[i].text}"/> ${array[i].text} `;
     }
     container.innerHTML = all + check_str;
-
     container.onclick = function(e){
         let t = e.target;
+        // 设置选择按钮事件（全选等）
         if(t.type === 'checkbox'){
             let type = t.getAttribute("checkbox_type");
             if(type === 'all'){
@@ -98,9 +122,27 @@ function setCheckBox(container, array) {
                 }
             }
         }
-        getOriginData(container);
+        // 分别输出两个数组
+        if(container === reg_checkbox){
+            arr1 = getOriginData(container);
+        }else if(container === pro_checkbox){
+            arr2 = getOriginData(container)
+        }
+        console.log('array',getData(arr1,arr2));
+        newTable(getData(arr1,arr2),arr1,arr2);
     }
 }
+// 获取数据
+function getData(arr1,arr2){
+    let array = [];
+    for(let i = 0; i < sourceData.length; i++){
+        if(arr1.indexOf(sourceData[i].region)>-1 && arr2.indexOf(sourceData[i].product)>-1){
+            array.push(sourceData[i]);
+        }
+    }
+    return array;
+}
+
 // 调用
 setCheckBox(reg_checkbox, [{
     value: 1,
@@ -130,20 +172,9 @@ function getOriginData (container){
     let arr = [];
     for(let i = 1; i < children.length; i++){
         if(children[i].checked){
-            console.log(children[i].getAttribute("text"));
             arr.push(children[i].getAttribute("text"));
         }
     }
-    console.log("arr",arr);
     return arr;
 }
-
-// // 获取数据
-// function 获取数据 {
-//     遍历原始数据 {
-//         判断是否在商品维度 或者 地区维度的选中范围内 {
-//             添加到返回数据list中
-//         }
-//     }
-//     返回数据
-// }
+// 我的妈终于写完了
