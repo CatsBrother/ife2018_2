@@ -94,14 +94,3 @@ function getData(arr1,arr2){
     return array;
 }
 
-// 获取数据
-function getOriginData (container){
-    let children = container.children;
-    let arr = [];
-    for(let i = 1; i < children.length; i++){
-        if(children[i].checked){
-            arr.push(children[i].getAttribute("text"));
-        }
-    }
-    return arr;
-}
