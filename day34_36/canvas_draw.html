@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas练习</title>
+</head>
+<body>
+    <canvas id="line" width="300" height="300"></canvas>
+    <canvas id="rect" width="300" height="300"></canvas>
+    <canvas id="circle" width="300" height="300"></canvas>
+    <canvas id="word" width="300" height="300"></canvas>
+    <canvas id="clock" width="300" height="300"></canvas>
+    <canvas id="cloud" width="300" height="300"></canvas>
+    <script>
+        function drawLine(){
+            let c = document.getElementById("line");
+            let ctx = c.getContext("2d");
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "red";
+            ctx.moveTo(0,0);
+            ctx.lineTo(70,70);
+            ctx.stroke();
+        }
+        function drawRect(){
+            let c = document.getElementById("rect");
+            let ctx = c.getContext("2d");
+            ctx.fillStyle="#0000ff";
+            ctx.fillRect(0,0,100,50);
+            ctx.strokeStyle="#ff0000"
+            ctx.strokeRect(150,0,100,50);
+        }
+        function drawCircle(){
+            let c = document.getElementById("circle");
+            let ctx = c.getContext("2d");
+            ctx.strokeStyle="#00ff00"
+            ctx.arc(100,100,80,0,2*Math.PI)
+            ctx.stroke();
+        }
+        function drawWord(){
+            let c = document.getElementById("word");
+            let ctx = c.getContext("2d");
+            ctx.fillText('Hello world!',50,50);
+            ctx.stroke();
+        }
+        drawLine();
+        drawRect();
+        drawCircle();
+        drawWord();
+    </script>
+</body>
+</html>
