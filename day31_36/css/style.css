@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.select select{
+    text-align: center;
+    text-align-last: center;
+}
+.select{
+    width: 300px;
+    text-align: center;
+    margin: 10px auto;
+}
+#table_list{
+    margin: 0 auto;
+}
+
+.chart{
+    text-align: center;
+}
+#histogram,
+#graph{
+    margin: 10px;
+}
