@@ -8,6 +8,7 @@ let pro_checkbox = document.getElementById("product-radio-wrapper");
 // 定义选中的地区和产品数组
 let arr1 = [];
 let arr2 = [];
+let max_num;
 // let reg_index = 0;
 // let pro_index = 0;
 // let select_region = reg_opt[reg_index].text;
@@ -63,7 +64,7 @@ function newTable(data,arr1,arr2) {
                 +'<th>11月</th>'
                 +'<th>12月</th>'
     str += string + "</tr>";
-    console.log('表头',str);
+    // console.log('表头',str);
     let content = "";
     for(let j = 0; j < data.length; j++){
         let row = "<tr>";
@@ -77,7 +78,6 @@ function newTable(data,arr1,arr2) {
             month_data += "<td>" + data[j].sale[k] + "</td>";
         }
         row += month_data + "</tr>";
-        console.log("row",row);
         content = content.concat(row);
     }
     table_div.innerHTML = str + content; 
@@ -93,4 +93,12 @@ function getData(arr1,arr2){
     }
     return array;
 }
-
+// 获取table中的最大值 用来画图
+function tableMax(arr){
+    let max_arr = [];
+    for(let i = 0; i < arr.length; i++){
+        max_arr.push(Math.max.apply(null,arr[i].sale))
+    }
+    max_num = Math.max.apply(null,max_arr);
+    return max_num;
+}

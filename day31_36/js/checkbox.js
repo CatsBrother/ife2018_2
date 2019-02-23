@@ -24,7 +24,7 @@ function setCheckBox(container, array) {
                         sum++;
                     }
                 }
-                console.log('sum',sum);
+                // console.log('sum',sum);
                 if(sum == 0){
                     t.checked = true;
                 }else if(sum == 3){
@@ -38,7 +38,7 @@ function setCheckBox(container, array) {
         }else if(container === pro_checkbox){
             arr2 = getOriginData(container)
         }
-        console.log('array',getData(arr1,arr2));
+        console.log('表格中的最大值为',tableMax(getData(arr1,arr2)));
         newTable(getData(arr1,arr2),arr1,arr2);
     }
 }
