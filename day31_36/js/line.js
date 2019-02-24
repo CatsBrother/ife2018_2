@@ -1,6 +1,8 @@
 function drawGraph(data,max_num) {
     let c = document.getElementById("graph");
+    c.width=c.width;
     let ctx = c.getContext("2d");
+
     // 画坐标轴
     ctx.beginPath();
     ctx.strokeStyle = "#000";
@@ -9,12 +11,14 @@ function drawGraph(data,max_num) {
     ctx.lineTo(500,300);
     ctx.stroke();
     ctx.save();
+
     // 拿到折线图中的最大值Max
     let sale = data.sale;
     // let max_arr = Math.max.apply(null,sale);
     // console.log("最大值",max_arr);
     let ratio = 280/max_num;
     // 定义好两个数据点之间的横向间隔距离35
+    ctx.height = ctx.height;
     ctx.beginPath();
     ctx.strokeStyle = "yellow"
     ctx.moveTo(35,300-sale[0]*ratio);
