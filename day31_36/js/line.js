@@ -2,17 +2,17 @@ function drawGraph(data,max_num) {
     let c = document.getElementById("graph");
     c.width=c.width;
     let ctx = c.getContext("2d");
-
+    console.log("arguments",typeof arguments[0]);
     // 画坐标轴
     ctx.beginPath();
     ctx.strokeStyle = "#000";
     ctx.moveTo(0,0);
+    
     ctx.lineTo(0,300);
     ctx.lineTo(500,300);
     ctx.stroke();
     ctx.save();
 
-    // 拿到折线图中的最大值Max
     let sale = data.sale;
     // let max_arr = Math.max.apply(null,sale);
     // console.log("最大值",max_arr);
